@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".home"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name=".group"
+            android:label="@string/title_activity_group" >
+        </activity>
     </application>
 
 </manifest>

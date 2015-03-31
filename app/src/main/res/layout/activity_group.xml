@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/GroupName"
+        android:id="@+id/GroupName"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp" />
+
+    <EditText
+        android:layout_width="241dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/GroupInput"
+        android:layout_marginLeft="70dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/MembersLabel"
+        android:id="@+id/Members"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/GroupMembers"
+        android:id="@+id/AddMembers"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/memberAddedList"
+        android:id="@+id/Mem"
+        android:textStyle="bold"
+        android:layout_gravity="left"
+        android:layout_marginBottom="-24dp"
+        android:layout_marginLeft="60dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/addedMembers"
+        android:id="@+id/addedMembers"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/Privacy"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="@string/Privacy" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/OpenPrivacy"
+        android:id="@+id/OpenPrivacy"
+        android:checked="true"
+        android:layout_gravity="center_horizontal"
+        android:onClick="radio1" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ClosedPrivacy"
+        android:id="@+id/ClosedPrivacy"
+        android:layout_gravity="center_horizontal"
+        android:checked="false"
+        android:onClick="radio2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp" />
+</LinearLayout>

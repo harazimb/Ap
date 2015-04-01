@@ -2,6 +2,9 @@ package com.harazim.android.ap;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -196,6 +199,15 @@ public class RegisterActivity extends Activity {
 
             if(success)
             {
+                SharedPreferences sharedPref = RegisterActivity.this.getSharedPreferences(
+                        getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("username",mUsername);
+                editor.putString("password",mPassword);
+                Intent i = new Intent(RegisterActivity.this,MainActivity.class);
+                startActivity(i);
+
                 finish();
             }
             else

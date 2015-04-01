@@ -37,7 +37,7 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
         friendList.add(new Friend("Evan"));
         friendList.add(new Friend("Peter"));
         friendList.add(new Friend("Sam"));
-        friendList.add(new Friend(""));
+        friendList.add(new Friend("Penis"));
         friendList.add(new Friend("KaConnorran"));
         friendList.add(new Friend("Bryce"));
         friendList.add(new Friend("Jim"));

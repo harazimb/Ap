@@ -21,9 +21,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        File f = new File(
-                "/data/data/com.harazim.android.ap/shared_prefs/"+getString(R.string.preference_file_key)+".xml");
-        if(f.exists()&&checkSignedIn())
+        if(checkSignedIn())
         {
             new Handler().postDelayed(new Runnable(){
 
@@ -64,7 +62,7 @@ public class SplashActivity extends Activity {
         String user = sharedPref.getString("username",defaults);
         String pass = sharedPref.getString("password",defaults);
 
-        if(user=="" || pass=="")
+        if(user.equals(defaults) || pass.equals(defaults))
         {
             return false;
         }

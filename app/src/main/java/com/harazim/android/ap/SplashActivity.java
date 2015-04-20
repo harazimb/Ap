@@ -21,7 +21,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        if(checkSignedIn())
+        if(checkFirstSignIn())
         {
             new Handler().postDelayed(new Runnable(){
 
@@ -40,6 +40,9 @@ public class SplashActivity extends Activity {
             Context context = SplashActivity.this;
             SharedPreferences sharedPref = context.getSharedPreferences(
                     getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt("First",1);
+            editor.commit();
             new Handler().postDelayed(new Runnable(){
 
                 @Override
@@ -54,15 +57,14 @@ public class SplashActivity extends Activity {
         }
     }
 
-    public boolean checkSignedIn()
+    public boolean checkFirstSignIn()
     {
         SharedPreferences sharedPref = SplashActivity.this.getSharedPreferences(
                 getString(R.string.preference_file_key),Context.MODE_PRIVATE);
-        String defaults= "";
-        String user = sharedPref.getString("username",defaults);
-        String pass = sharedPref.getString("password",defaults);
+        int defaults= 0;
+        int first = sharedPref.getInt("First",defaults);
 
-        if(user.equals(defaults) || pass.equals(defaults))
+        if(first==0)
         {
             return false;
         }

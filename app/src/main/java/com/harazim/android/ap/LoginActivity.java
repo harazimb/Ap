@@ -21,46 +21,34 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * A login screen that offers login via email/password.
+ * Created by evan on 4/9/2015.
  */
-public class RegisterActivity extends Activity {
+public class LoginActivity extends Activity {
 
     JSONParser jsonParser = new JSONParser();
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserRegisterTask mAuthTask = null;
+    private UserLoginTask mAuthTask = null;
     private EditText mPasswordView;
     private EditText mUsernameView;
     private Button mRegisterButton;
-    private View mRegisterFormView;
+    private View mLoginFormView;
 
-    private static String url = "http://cse.msu.edu/~harazimb/register_app.php";
-
+    private static String url = "http://cse.msu.edu/~harazimb/login_app.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_login);
 
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mUsernameView = (EditText) findViewById(R.id.username);
+        mPasswordView = (EditText) findViewById(R.id.password_login);
+        mUsernameView = (EditText) findViewById(R.id.username_login);
 
-        mRegisterButton= (Button) findViewById(R.id.register_button);
+        mRegisterButton= (Button) findViewById(R.id.register_button_login);
         mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,9 +56,12 @@ public class RegisterActivity extends Activity {
             }
         });
 
-        mRegisterFormView = findViewById(R.id.register_form);
+        mLoginFormView = findViewById(R.id.login_form);
+
+
 
     }
+
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -79,86 +70,34 @@ public class RegisterActivity extends Activity {
      */
     public void attemptRegister()
     {
+        //Reset errors.
+        mUsernameView.setError(null);
+        mPasswordView.setError(null);
+
+        String username = mUsernameView.getText().toString();
+        String password = mPasswordView.getText().toString();
         //If there is already a authorization task going on, don't do anything.
         if(mAuthTask!=null)
         {
             return;
         }
 
-        //Reset errors.
-        mUsernameView.setError(null);
-        mPasswordView.setError(null);
-
-        // Get the values of both text fields
-        String username = mUsernameView.getText().toString();
-        String password = mPasswordView.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        //Checking for valid password
-        if(!TextUtils.isEmpty(password) && !isPasswordValid(password))
-        {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-        //check for valid username
-        if(TextUtils.isEmpty(username))
-        {
-            mUsernameView.setError(getString(R.string.error_field_required));
-            focusView = mUsernameView;
-            cancel = true;
-        }
-        else if(!isUsernameValid(username))
-        {
-            mUsernameView.setError(getString(R.string.error_invalid_username));
-            focusView = mUsernameView;
-            cancel = true;
-        }
-
-        if(cancel)
-        {
-            //There was an error so focus on what field caused the error.
-            focusView.requestFocus();
-        }
         else{
             // Execute registration.
-            mAuthTask = new UserRegisterTask(username,password);
+            mAuthTask = new UserLoginTask(username,password);
             mAuthTask.execute((Void) null);
         }
 
     }
 
     /**
-     * Is the input password valid? Was thinking greater than 4 characters??
-     * @param password password entered
-     * @return true if valid
-     */
-    private boolean isPasswordValid(String password)
-    {
-        return password.length()>4;
-    }
-
-    /**
-     * Going to implement code to check if username already taken here.
-     * @param username username entered.
-     * @return true if valid.
-     */
-    private boolean isUsernameValid(String username)
-    {
-        return true;
-    }
-
-    /**
      *
      */
-    public class UserRegisterTask extends AsyncTask<Void,Void,Boolean> {
+    public class UserLoginTask extends AsyncTask<Void,Void,Boolean> {
 
         private final String mUsername;
         private final String mPassword;
-        UserRegisterTask(String username, String password)
+        UserLoginTask(String username, String password)
         {
             mUsername=username;
             mPassword=password;
@@ -199,13 +138,13 @@ public class RegisterActivity extends Activity {
 
             if(success)
             {
-                SharedPreferences sharedPref = RegisterActivity.this.getSharedPreferences(
+                SharedPreferences sharedPref = LoginActivity.this.getSharedPreferences(
                         getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("username",mUsername);
                 editor.putString("password",mPassword);
-                Intent i = new Intent(RegisterActivity.this,MainActivity.class);
+                Intent i = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(i);
 
                 //finish();
@@ -225,6 +164,3 @@ public class RegisterActivity extends Activity {
         }
     }
 }
-
-
-

@@ -37,8 +37,8 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
         friendList.add(new Friend("Evan"));
         friendList.add(new Friend("Peter"));
         friendList.add(new Friend("Sam"));
-        friendList.add(new Friend(""));
-        friendList.add(new Friend("KaConnorran"));
+        friendList.add(new Friend("Karan"));
+        friendList.add(new Friend("Connor"));
         friendList.add(new Friend("Bryce"));
         friendList.add(new Friend("Jim"));
         friendList.add(new Friend("Jaime"));
@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         int pos = lv.getPositionForView(buttonView);
-        if (pos != ListView.INVALID_POSITION) {
+        if (pos < frAdapter.getSize()) {
             Friend f = friendList.get(pos);
             f.setSelected(isChecked);
 

@@ -36,18 +36,21 @@ class Friend {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
 }
 
 public class FriendAdapter extends ArrayAdapter<Friend>{
 
     private List<Friend> friendList;
     private Context context;
+    private int mSize=0;
 
     public FriendAdapter(List<Friend> friendList, Context context)
     {
         super(context,R.layout.single_listview_item,friendList);
         this.friendList = friendList;
         this.context = context;
+        mSize = this.friendList.size();
     }
 
     private static class FriendHolder
@@ -84,4 +87,6 @@ public class FriendAdapter extends ArrayAdapter<Friend>{
 
         return v;
     }
+
+    public int getSize(){return mSize;}
 }

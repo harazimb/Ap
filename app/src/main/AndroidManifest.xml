@@ -40,6 +40,11 @@
             android:label="@string/title_activity_register"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+        <activity android:name=".LoginActivity"
+            android:label="login"
+            android:windowSoftInputMode="adjustResize|stateVisible">
+
+            </activity>
     </application>
 
 </manifest>

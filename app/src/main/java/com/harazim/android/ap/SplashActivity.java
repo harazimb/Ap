@@ -28,7 +28,7 @@ public class SplashActivity extends Activity {
                 @Override
                 public void run(){
 
-                    Intent i = new Intent(SplashActivity.this,MainActivity.class);
+                    Intent i = new Intent(SplashActivity.this,LoginActivity.class);
                     startActivity(i);
 
                     finish();
@@ -69,6 +69,11 @@ public class SplashActivity extends Activity {
             return false;
         }
         return true;
+
+
+
+        //Temporary to test.
+        //return false;
 
     }
 }

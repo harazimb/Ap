@@ -62,22 +62,26 @@ public class FriendAdapter extends ArrayAdapter<Friend>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View v = convertView;
+       // View v = convertView;
         FriendHolder holder = new FriendHolder();
         if(convertView == null)
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v=inflater.inflate(R.layout.single_listview_item, null);
+            convertView=inflater.inflate(R.layout.single_listview_item, null);
 
-            holder.friendName = (TextView) v.findViewById(R.id.name);
-            holder.chkBox = (CheckBox) v.findViewById(R.id.FriendsCheck);
+            holder.friendName = (TextView) convertView.findViewById(R.id.name);
+            holder.chkBox = (CheckBox) convertView.findViewById(R.id.FriendsCheck);
 
             holder.chkBox.setOnCheckedChangeListener((MainActivity) context);
+
+            //Here was the problem, need to set the tag because if not then when gettag is called
+            //In the else statement, it is just null.
+            convertView.setTag(holder);
         }
 
         else
         {
-            holder = (FriendHolder) v.getTag();
+            holder = (FriendHolder) convertView.getTag();
         }
 
         Friend f = friendList.get(position);
@@ -85,7 +89,7 @@ public class FriendAdapter extends ArrayAdapter<Friend>{
         holder.chkBox.setChecked(f.isSelected());
         holder.chkBox.setTag(f);
 
-        return v;
+        return convertView;
     }
 
     public int getSize(){return mSize;}

@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 
-public class group extends Activity {
+public class group extends Activity{
 
     TextView a;
     RadioButton r1;
@@ -23,7 +23,7 @@ public class group extends Activity {
         a = (TextView) findViewById(R.id.Mem);
         r1 = (RadioButton) findViewById(R.id.OpenPrivacy);
         r2 = (RadioButton) findViewById(R.id.ClosedPrivacy);
-        a.setText("ha");
+        //a.setText();
     }
 
 

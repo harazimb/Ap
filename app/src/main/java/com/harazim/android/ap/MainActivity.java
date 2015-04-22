@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,9 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
 
     ListView lv;
     ArrayList<Friend> friendList;
+    ArrayList<Friend> memberList;
     FriendAdapter frAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +48,6 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
         friendList.add(new Friend("Jayson"));
 
 
-
         frAdapter = new FriendAdapter(friendList, this);
         lv.setAdapter(frAdapter);
     }
@@ -57,19 +59,14 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
             Friend f = friendList.get(pos);
             f.setSelected(isChecked);
 
+
             Toast.makeText(this, "Clicked on Friend: " + f.getName() + ". State: is "
                     + isChecked, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void add(View view)
-    {
+    public void add(View view) {
         Intent i = new Intent(getApplicationContext(), group.class);
         startActivity(i);
-    }
-
-    public void getFriends()
-    {
-
     }
 }

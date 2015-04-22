@@ -34,7 +34,8 @@
         android:id="@+id/AddMembers"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:onClick="addMore" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create"
-        android:id="@+id/button"
+        android:id="@+id/create"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp" />
 </LinearLayout>

@@ -67,4 +67,9 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
         Intent i = new Intent(getApplicationContext(), group.class);
         startActivity(i);
     }
+
+    public void getFriends()
+    {
+
+    }
 }

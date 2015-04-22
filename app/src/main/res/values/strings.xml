@@ -18,7 +18,7 @@
     <string name="ListofFriends">Friends</string>
     <string name="add">Add</string>
     <string name="addedMembers">Added:</string>
-    <string name="memberAddedList">What goes here???</string>
+    <string name="memberAddedList">First 3 names of added people...</string>
     <string name="title_activity_register">register</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="preference_file_key">com.harazim.android.app.PREFERENCE_FILE_KEY</string>

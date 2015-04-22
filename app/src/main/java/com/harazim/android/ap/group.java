@@ -1,6 +1,7 @@
 package com.harazim.android.ap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -64,5 +65,11 @@ public class group extends Activity {
             r1.setChecked(false);
             r2.setChecked(true);
         }
+    }
+
+    public void addMore(View view)
+    {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
     }
 }

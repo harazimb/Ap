@@ -2,6 +2,8 @@ package com.harazim.android.ap;
 
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-class Friend {
+class Friend{
 
     String name;
     boolean selected = false;
@@ -44,6 +46,10 @@ public class FriendAdapter extends ArrayAdapter<Friend>{
     private List<Friend> friendList;
     private Context context;
     private int mSize=0;
+
+    {
+
+    }
 
     public FriendAdapter(List<Friend> friendList, Context context)
     {

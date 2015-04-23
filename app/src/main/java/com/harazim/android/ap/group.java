@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 public class group extends Activity{
 
@@ -23,7 +25,10 @@ public class group extends Activity{
         a = (TextView) findViewById(R.id.Mem);
         r1 = (RadioButton) findViewById(R.id.OpenPrivacy);
         r2 = (RadioButton) findViewById(R.id.ClosedPrivacy);
-        //a.setText();
+        //Only prints out the last clicked friend
+        ArrayList<String> memArray = getIntent().getExtras().getStringArrayList("key");
+        String members = memArray.get(0)+", "+memArray.get(0)+", "+memArray.get(0)+"...";
+        a.setText(members);
     }
 
 

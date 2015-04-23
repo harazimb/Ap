@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
 
     ListView lv;
     ArrayList<Friend> friendList;
-    ArrayList<String> memberList= new ArrayList<>();
+    ArrayList<String> memberList= new ArrayList<String>();
     FriendAdapter frAdapter;
 
     @Override

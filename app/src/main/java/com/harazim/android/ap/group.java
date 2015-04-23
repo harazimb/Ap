@@ -29,7 +29,7 @@ public class group extends Activity{
         Bundle extra =getIntent().getExtras();
         if(extra != null) {
             ArrayList<String> memArray = getIntent().getExtras().getStringArrayList("key");
-            String members = memArray.get(0) + ", " + memArray.get(0) + ", " + memArray.get(0) + "...";
+            String members = memArray.get(0) + ", " + memArray.get(1) + ", " + memArray.get(2) + "...";
             a.setText(members);
         }
     }

@@ -25,10 +25,13 @@ public class group extends Activity{
         a = (TextView) findViewById(R.id.Mem);
         r1 = (RadioButton) findViewById(R.id.OpenPrivacy);
         r2 = (RadioButton) findViewById(R.id.ClosedPrivacy);
-        //Only prints out the last clicked friend
-        ArrayList<String> memArray = getIntent().getExtras().getStringArrayList("key");
-        String members = memArray.get(0)+", "+memArray.get(0)+", "+memArray.get(0)+"...";
-        a.setText(members);
+        //Only prints out the first clicked friend
+        Bundle extra =getIntent().getExtras();
+        if(extra != null) {
+            ArrayList<String> memArray = getIntent().getExtras().getStringArrayList("key");
+            String members = memArray.get(0) + ", " + memArray.get(0) + ", " + memArray.get(0) + "...";
+            a.setText(members);
+        }
     }
 
 

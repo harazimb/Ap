@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
 
     ListView lv;
     ArrayList<Friend> friendList;
-    ArrayList<String> memberList;
+    ArrayList<String> memberList= new ArrayList<>();
     FriendAdapter frAdapter;
 
     @Override
@@ -39,6 +39,7 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
 
     private void displayFriendList() {
         friendList = new ArrayList<>();
+
         friendList.add(new Friend("Evan"));
         friendList.add(new Friend("Peter"));
         friendList.add(new Friend("Sam"));
@@ -56,25 +57,21 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        memberList = new ArrayList<>();
         int pos = lv.getPositionForView(buttonView);
         if (pos < frAdapter.getSize()) {
             Friend f = friendList.get(pos);
             f.setSelected(isChecked);
-            if(f.isSelected()) {
-                memberList.add(f.getName());
-            }
-
+            memberList.add(f.getName());
 
             Toast.makeText(this, "Clicked on Friend: " + f.getName() + ". State: is "
                     + isChecked, Toast.LENGTH_SHORT).show();
         }
     }
 
-    // This doesn't work is nothing is selected
+    // This doesn't work if nothing is selected
     public void add(View view) {
 
-        if(memberList.size()!= 0) {
+        if(memberList.size() != 0) {
 
             Bundle bundel = new Bundle();
             bundel.putStringArrayList("key", memberList);
@@ -82,7 +79,6 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
             Intent intent = new Intent(this, group.class);
             intent.putExtras(bundel);
             startActivity(intent);
-            memberList.clear();
         }
 
         else

@@ -68,7 +68,6 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
         }
     }
 
-    // This doesn't work if nothing is selected
     public void add(View view) {
 
         if(memberList.size() != 0) {

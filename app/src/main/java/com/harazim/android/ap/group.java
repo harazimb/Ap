@@ -1,12 +1,15 @@
 package com.harazim.android.ap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 public class group extends Activity{
 
     TextView a;
+    EditText mGroupNameView;
     RadioButton r1;
     RadioButton r2;
     @Override
@@ -25,11 +29,25 @@ public class group extends Activity{
         a = (TextView) findViewById(R.id.Mem);
         r1 = (RadioButton) findViewById(R.id.OpenPrivacy);
         r2 = (RadioButton) findViewById(R.id.ClosedPrivacy);
+        mGroupNameView = (EditText) findViewById(R.id.GroupInput);
         //Only prints out the first clicked friend
         Bundle extra =getIntent().getExtras();
         if(extra != null) {
             ArrayList<String> memArray = getIntent().getExtras().getStringArrayList("key");
-            String members = memArray.get(0) + ", " + memArray.get(1) + ", " + memArray.get(2) + "...";
+            String members;
+            if(memArray.size()==1)
+            {
+                members = memArray.get(0);
+            }
+            else if(memArray.size()==2)
+            {
+                members = memArray.get(0)+ ", " + memArray.get(1);
+            }
+            else {
+                members = memArray.get(0) + ", " + memArray.get(1) + ", " + memArray.get(2) + "...";
+            }
+
+
             a.setText(members);
         }
     }
@@ -79,5 +97,29 @@ public class group extends Activity{
     {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
+    }
+
+    public void hideKeyboard(View view) {
+        // Check if no view has focus:
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    public void createGroup(View view)
+    {
+        String groupName = mGroupNameView.getText().toString();
+        if(groupName.isEmpty())
+        {
+            mGroupNameView.setError("Group must have a name");
+            mGroupNameView.requestFocus();
+        }
+        else
+        {
+            Intent intent = new Intent(getApplicationContext(), group_edit.class);
+            startActivity(intent);
+        }
+
     }
 }

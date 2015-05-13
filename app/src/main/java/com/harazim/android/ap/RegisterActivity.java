@@ -48,7 +48,7 @@ public class RegisterActivity extends Activity {
     private Button mRegisterButton;
     private View mRegisterFormView;
 
-    private static String url = "http://cse.msu.edu/~harazimb/register_app.php";
+    private static String url = "http://cse.msu.edu/~moraneva/register_app.php";
 
 
     @Override

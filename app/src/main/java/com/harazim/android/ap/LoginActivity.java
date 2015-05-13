@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
     private Button mRegisterButton;
     private View mLoginFormView;
 
-    private static String url = "http://cse.msu.edu/~harazimb/login_app.php";
+    private static String url = "http://cse.msu.edu/~moraneva/login_app.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

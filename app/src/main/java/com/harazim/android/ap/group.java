@@ -109,6 +109,10 @@ public class group extends Activity{
 
     public void createGroup(View view)
     {
+        /**
+         * @TODO Add the code to actually add the group to the database.
+         * must be done before we go group list to view groups the person is in.
+         */
         String groupName = mGroupNameView.getText().toString();
         if(groupName.isEmpty())
         {
@@ -117,7 +121,7 @@ public class group extends Activity{
         }
         else
         {
-            Intent intent = new Intent(getApplicationContext(), group_edit.class);
+            Intent intent = new Intent(getApplicationContext(), GroupListActivity.class);
             startActivity(intent);
         }
 

@@ -50,6 +50,10 @@
             android:name=".group_edit"
             android:label="@string/title_activity_group_edit" >
         </activity>
+        <activity
+            android:name=".GroupListActivity"
+            android:label="@string/title_activity_group_list" >
+        </activity>
     </application>
 
 </manifest>

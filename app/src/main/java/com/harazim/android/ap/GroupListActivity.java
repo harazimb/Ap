@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 
@@ -32,6 +33,7 @@ public class GroupListActivity extends Activity {
     ListView lv;
     String uname;
     Context mContext;
+    TextView noGroupsView;
 
     private static String url = "http://cse.msu.edu/~moraneva/get_groups.php";
 
@@ -43,6 +45,7 @@ public class GroupListActivity extends Activity {
         SharedPreferences sharedPref = GroupListActivity.this.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         lv = (ListView) findViewById(R.id.groupListView);
+        //noGroupsView = (TextView) findViewById(R.id.noGroupsTextView);
         mContext = this.getApplicationContext();
         uname = sharedPref.getString("username","penis");
         if(uname.equals("penis"))
@@ -57,7 +60,7 @@ public class GroupListActivity extends Activity {
     }
 
     private void displayGroupList() {
-        mTask = new GetGroupsTask();
+        mTask = new GetGroupsTask(noGroupsView);
         mTask.execute((Void) null);
 
     }
@@ -86,6 +89,11 @@ public class GroupListActivity extends Activity {
 
     public class GetGroupsTask extends AsyncTask<Void,Void,ArrayList<Group>>
     {
+        TextView mTextView;
+        GetGroupsTask(TextView view)
+        {
+            mTextView=view;
+        }
 
         @Override
         protected ArrayList<Group> doInBackground(Void... args)
@@ -122,6 +130,10 @@ public class GroupListActivity extends Activity {
             {
                  adapter = new GroupAdapter(groupList,mContext);
                  lv.setAdapter(adapter);
+            }
+            else
+            {
+                mTextView.setText("No Groups");
             }
         }
 

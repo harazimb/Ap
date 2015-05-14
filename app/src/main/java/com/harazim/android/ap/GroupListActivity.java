@@ -4,16 +4,27 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class GroupListActivity extends ActionBarActivity {
 
+    ArrayList<Group> groupList;
+    ListView lv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_list);
+        lv = (ListView) findViewById(R.id.groupListView);
+        displayGroupList();
     }
 
+    private void displayGroupList()
+    {
+        groupList = new ArrayList<>();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

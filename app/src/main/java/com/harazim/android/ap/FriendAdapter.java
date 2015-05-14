@@ -47,9 +47,9 @@ public class FriendAdapter extends ArrayAdapter<Friend>{
     private Context context;
     private int mSize=0;
 
-    {
 
-    }
+
+
 
     public FriendAdapter(List<Friend> friendList, Context context)
     {

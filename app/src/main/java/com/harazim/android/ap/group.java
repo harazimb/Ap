@@ -194,7 +194,7 @@ public class group extends Activity{
         @Override
         protected void onPostExecute(final Boolean success)
         {
-            Intent i = new Intent(group.this,group_edit.class);
+            Intent i = new Intent(group.this,GroupListActivity.class);
             startActivity(i);
 
             finish();

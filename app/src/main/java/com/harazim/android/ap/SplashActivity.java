@@ -23,6 +23,11 @@ public class SplashActivity extends Activity {
 
         if(checkFirstSignIn())
         {
+            SharedPreferences sharedPref = SplashActivity.this.getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            String uname = sharedPref.getString("username","......");
+            if(uname.equals("......"))
+            {
             new Handler().postDelayed(new Runnable(){
 
                 @Override
@@ -34,6 +39,21 @@ public class SplashActivity extends Activity {
                     finish();
                 }
             } , SPLASH_DISPLAY_LENGTH);
+            }
+            else
+            {
+                new Handler().postDelayed(new Runnable(){
+
+                    @Override
+                    public void run(){
+
+                        Intent i = new Intent(SplashActivity.this,MainActivity.class);
+                        startActivity(i);
+
+                        finish();
+                    }
+                } , SPLASH_DISPLAY_LENGTH);
+            }
         }
         else
         {

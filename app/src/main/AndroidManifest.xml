@@ -34,7 +34,7 @@
             android:label="@string/title_activity_home" >
         </activity>
         <activity
-            android:name=".group"
+            android:name=".CreateGroupActivity"
             android:label="@string/title_activity_group" >
         </activity>
         <activity

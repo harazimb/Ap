@@ -1,13 +1,10 @@
 package com.harazim.android.ap;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class group extends Activity{
+public class CreateGroupActivity extends Activity{
 
 
     private static String url = "http://cse.msu.edu/~moraneva/create_group.php";
@@ -136,7 +133,7 @@ public class group extends Activity{
         }
         else
         {
-            SharedPreferences sharedPref = group.this.getSharedPreferences(
+            SharedPreferences sharedPref = CreateGroupActivity.this.getSharedPreferences(
                     getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             String name=sharedPref.getString("username","err");
             if(name.equals("err"))
@@ -194,7 +191,7 @@ public class group extends Activity{
         @Override
         protected void onPostExecute(final Boolean success)
         {
-            Intent i = new Intent(group.this,GroupListActivity.class);
+            Intent i = new Intent(CreateGroupActivity.this,GroupListActivity.class);
             startActivity(i);
 
             finish();

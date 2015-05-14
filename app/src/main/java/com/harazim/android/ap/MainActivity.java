@@ -3,21 +3,11 @@ package com.harazim.android.ap;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -75,14 +65,14 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
             Bundle bundel = new Bundle();
             bundel.putStringArrayList("key", memberList);
 
-            Intent intent = new Intent(this, group.class);
+            Intent intent = new Intent(this, CreateGroupActivity.class);
             intent.putExtras(bundel);
             startActivity(intent);
         }
 
         else
         {
-            Intent i = new Intent(getApplicationContext(), group.class);
+            Intent i = new Intent(getApplicationContext(), CreateGroupActivity.class);
             startActivity(i);
         }
     }

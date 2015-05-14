@@ -34,6 +34,7 @@ public class CreateGroupActivity extends Activity{
     CreateGroupTask mGroupTask;
     RadioButton r1;
     RadioButton r2;
+    ArrayList<String> memArray;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +43,9 @@ public class CreateGroupActivity extends Activity{
         r1 = (RadioButton) findViewById(R.id.OpenPrivacy);
         r2 = (RadioButton) findViewById(R.id.ClosedPrivacy);
         mGroupNameView = (EditText) findViewById(R.id.GroupInput);
-        //Only prints out the first clicked friend
-        Bundle extra =getIntent().getExtras();
+        Bundle extra = getIntent().getExtras();
         if(extra != null) {
-            ArrayList<String> memArray = getIntent().getExtras().getStringArrayList("key");
+            memArray = getIntent().getExtras().getStringArrayList("key");
             String members;
             if(memArray.size()==1)
             {
@@ -107,8 +107,20 @@ public class CreateGroupActivity extends Activity{
 
     public void addMore(View view)
     {
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
+        if(memArray.size() != 0) {
+
+            Bundle bundel = new Bundle();
+            bundel.putStringArrayList("key", memArray);
+
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtras(bundel);
+            startActivity(intent);
+        }
+        else
+        {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+        }
     }
 
     public void hideKeyboard(View view) {

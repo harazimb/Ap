@@ -17,6 +17,7 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
     ArrayList<Friend> friendList;
     ArrayList<String> memberList= new ArrayList<String>();
     FriendAdapter frAdapter;
+    ArrayList<String> temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,24 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
 
         lv = (ListView) findViewById(R.id.listview);
         displayFriendList();
+        Bundle extra = getIntent().getExtras();
+        //This needs check the box of a member when previously checked, I tried some code.
+        // I need to simulate a click on the friend for each element in the array list temp
+        if(extra != null)
+        {
+            temp = getIntent().getExtras().getStringArrayList("key");
+            for(int i = 0; i<temp.size(); i++)
+            {
+                for(int j = 0; j<friendList.size(); j++)
+                {
+                    if(friendList.get(j).getName() == temp.get(i))
+                    {
+                        //friendList.get(j).setSelected(true);
+                    }
+                }
+
+            }
+        }
     }
 
     private void displayFriendList() {
@@ -51,10 +70,24 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
         if (pos < frAdapter.getSize()) {
             Friend f = friendList.get(pos);
             f.setSelected(isChecked);
-            memberList.add(f.getName());
+            if(isChecked == false)
+            {
+                int count = 0;
+                while(count<memberList.size())
+                {
+                    if(memberList.get(count) == f.getName())
+                    {
+                        memberList.remove(count);
+                    }
+                    else
+                        ++count;
+                }
+            }
+            else
+                memberList.add(f.getName());
 
-            Toast.makeText(this, "Clicked on Friend: " + f.getName() + ". State: is "
-                    + isChecked, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Clicked on Friend: " + f.getName() + ". State: is "
+            //       + isChecked, Toast.LENGTH_SHORT).show();
         }
     }
 

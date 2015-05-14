@@ -144,6 +144,7 @@ public class LoginActivity extends Activity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("username",mUsername);
                 editor.putString("password",mPassword);
+                editor.commit();
                 Intent i = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(i);
 

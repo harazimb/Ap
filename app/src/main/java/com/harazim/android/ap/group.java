@@ -1,8 +1,12 @@
 package com.harazim.android.ap;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,13 +17,24 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class group extends Activity{
 
+
+    private static String url = "http://cse.msu.edu/~moraneva/create_group.php";
+
+    JSONParser jsonParser = new JSONParser();
     TextView a;
     EditText mGroupNameView;
+    CreateGroupTask mGroupTask;
     RadioButton r1;
     RadioButton r2;
     @Override
@@ -121,9 +136,73 @@ public class group extends Activity{
         }
         else
         {
-            Intent intent = new Intent(getApplicationContext(), GroupListActivity.class);
-            startActivity(intent);
+            SharedPreferences sharedPref = group.this.getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            String name=sharedPref.getString("username","err");
+            if(name.equals("err"))
+            {
+                mGroupNameView.setError("Error");
+            }
+            else {
+                mGroupTask = new CreateGroupTask(groupName, name);
+
+                mGroupTask.execute((Void) null);
+            }
         }
 
+    }
+
+    /**
+     * Async task to create a group and insert into database.
+     */
+    public class CreateGroupTask extends AsyncTask<Void,Void,Boolean> {
+
+        String mGroupName;
+        String mOwnerID;
+        CreateGroupTask(String groupName,String ownerID)
+        {
+            mGroupName=groupName;
+            mOwnerID=ownerID;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... args){
+            //Create username/password param.
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("groupname",mGroupName));
+            params.add(new BasicNameValuePair("ownername",mOwnerID));
+
+            JSONObject json = jsonParser.makeHttpRequest(url,"POST",params);
+
+            try{
+                int success=json.getInt("success");
+
+                if(success==1){
+
+                    return true;
+                } else{
+                    return false;
+                }
+
+            }
+            catch(JSONException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success)
+        {
+            Intent i = new Intent(group.this,group_edit.class);
+            startActivity(i);
+
+            finish();
+        }
+
+        protected void onCancelled()
+        {
+            mGroupTask=null;
+        }
     }
 }

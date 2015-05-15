@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -136,4 +137,12 @@ public class GroupListActivity extends Activity {
             mTask=null;
         }
     }
+
+    public void CreateGroup(View view)
+    {
+        Intent i = new Intent(mContext, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
 }
+

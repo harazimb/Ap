@@ -35,4 +35,16 @@
         android:layout_marginLeft="29dp"
         android:layout_marginStart="29dp"
         android:layout_marginTop="28dp"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Group"
+        android:id="@+id/button3"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignRight="@+id/groupListView"
+        android:layout_alignEnd="@+id/groupListView"
+        android:nestedScrollingEnabled="false"
+        android:onClick="CreateGroup" />
 </RelativeLayout>

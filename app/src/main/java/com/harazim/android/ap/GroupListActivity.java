@@ -33,7 +33,7 @@ public class GroupListActivity extends Activity {
     ListView lv;
     String uname;
     Context mContext;
-    TextView noGroupsView;
+    TextView mTextView;
 
     private static String url = "http://cse.msu.edu/~moraneva/get_groups.php";
 
@@ -44,8 +44,8 @@ public class GroupListActivity extends Activity {
         setContentView(R.layout.activity_group_list);
         SharedPreferences sharedPref = GroupListActivity.this.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        mTextView= (TextView) findViewById(R.id.noGroupsTextView);
         lv = (ListView) findViewById(R.id.groupListView);
-        //noGroupsView = (TextView) findViewById(R.id.noGroupsTextView);
         mContext = this.getApplicationContext();
         uname = sharedPref.getString("username","penis");
         if(uname.equals("penis"))
@@ -60,7 +60,7 @@ public class GroupListActivity extends Activity {
     }
 
     private void displayGroupList() {
-        mTask = new GetGroupsTask(noGroupsView);
+        mTask = new GetGroupsTask();
         mTask.execute((Void) null);
 
     }
@@ -89,11 +89,6 @@ public class GroupListActivity extends Activity {
 
     public class GetGroupsTask extends AsyncTask<Void,Void,ArrayList<Group>>
     {
-        TextView mTextView;
-        GetGroupsTask(TextView view)
-        {
-            mTextView=view;
-        }
 
         @Override
         protected ArrayList<Group> doInBackground(Void... args)
@@ -106,19 +101,18 @@ public class GroupListActivity extends Activity {
 
             JSONArray json = jsonParser.makeHttpRequest(url,"POST",params);
 
-            try{
-               for(int a=0;a<json.length();a++)
-               {
-                   String gName = json.getString(a);
-                   Group g = new Group(gName);
-                   list.add(g);
-               }
+            if(json!=null) {
+                try {
+                    for (int a = 0; a < json.length(); a++) {
+                        String gName = json.getString(a);
+                        Group g = new Group(gName);
+                        list.add(g);
+                    }
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            catch(JSONException e){
-                e.printStackTrace();
-            }
-
             return list;
         }
 
@@ -128,18 +122,18 @@ public class GroupListActivity extends Activity {
             groupList=list;
             if(groupList.size()!=0)
             {
-                 adapter = new GroupAdapter(groupList,mContext);
-                 lv.setAdapter(adapter);
+                adapter = new GroupAdapter(groupList,mContext);
+                lv.setAdapter(adapter);
             }
             else
             {
-                mTextView.setText("No Groups");
+                mTextView.setText("You have no groups");
             }
         }
 
         protected void onCancelled()
         {
-           mTask=null;
+            mTask=null;
         }
     }
 }

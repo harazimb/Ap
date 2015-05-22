@@ -107,7 +107,7 @@ public class CreateGroupActivity extends Activity{
 
     public void addMore(View view)
     {
-        if(memArray.size() != 0) {
+        if(memArray != null) {
 
             Bundle bundel = new Bundle();
             bundel.putStringArrayList("key", memArray);

@@ -145,7 +145,7 @@ public class GroupListActivity extends Activity {
     }
 
     public void CreateGroup(View view) {
-        Intent i = new Intent(mContext, MainActivity.class);
+        Intent i = new Intent(mContext, CreateGroupActivity.class);
         startActivity(i);
         finish();
     }
@@ -154,7 +154,7 @@ public class GroupListActivity extends Activity {
     {
         TextView text = (TextView) view.findViewById(R.id.groupName);
         Intent i = new Intent(GroupListActivity.this, EditGroupActivity.class);
-        i.putExtra("group_name",text.getText().toString());
+        i.putExtra("group_name", text.getText().toString());
         startActivity(i);
     }
 }

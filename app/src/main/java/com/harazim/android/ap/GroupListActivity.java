@@ -119,6 +119,21 @@ public class GroupListActivity extends Activity {
             if (groupList.size() != 0) {
                 adapter = new GroupAdapter(groupList, mContext);
                 lv.setAdapter(adapter);
+                View v;
+                View temp = null;
+                for(int a =0; a<lv.getCount();a++)
+                {
+                    v= lv.getAdapter().getView(a,temp,null);
+                    final TextView textView = (TextView) v.findViewById(R.id.groupName);
+                    v.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(GroupListActivity.this, EditGroupActivity.class);
+                            i.putExtra("group_name",textView.getText().toString());
+                            startActivity(i);
+                        }
+                    });
+                }
             } else {
                 mTextView.setText("You have no groups");
             }
@@ -133,6 +148,14 @@ public class GroupListActivity extends Activity {
         Intent i = new Intent(mContext, MainActivity.class);
         startActivity(i);
         finish();
+    }
+
+    public void GroupOnClick(View view)
+    {
+        TextView text = (TextView) view.findViewById(R.id.groupName);
+        Intent i = new Intent(GroupListActivity.this, EditGroupActivity.class);
+        i.putExtra("group_name",text.getText().toString());
+        startActivity(i);
     }
 }
 

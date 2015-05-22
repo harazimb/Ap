@@ -1,6 +1,7 @@
 package com.harazim.android.ap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,8 +85,17 @@ public class GroupAdapter extends ArrayAdapter<Group>
 
         Group f = mGroupList.get(position);
         holder.groupName.setText(f.getName());
+        holder.groupName.setClickable(true);
+        holder.groupName.setOnClickListener( handler);
         return convertView;
     }
-
+    View.OnClickListener handler = new View.OnClickListener() {
+        public void onClick(View v) {
+            TextView text = (TextView) v;
+            Intent i = new Intent(v.getContext(), EditGroupActivity.class);
+            i.putExtra("group_name",text.getText().toString());
+            v.getContext().startActivity(i);
+        }
+    };
     public int getSize(){return mSize;}
 }

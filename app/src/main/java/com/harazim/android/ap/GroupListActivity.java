@@ -39,23 +39,21 @@ public class GroupListActivity extends Activity {
     private static String url = "http://cse.msu.edu/~moraneva/get_groups.php";
 
     JSONArrayParser jsonParser = new JSONArrayParser();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_list);
         SharedPreferences sharedPref = GroupListActivity.this.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        mTextView= (TextView) findViewById(R.id.noGroupsTextView);
+        mTextView = (TextView) findViewById(R.id.noGroupsTextView);
         lv = (ListView) findViewById(R.id.groupListView);
         mContext = this.getApplicationContext();
-        uname = sharedPref.getString("username","penis");
-        if(uname.equals("penis"))
-        {
+        uname = sharedPref.getString("username", "penis");
+        if (uname.equals("penis")) {
             //This is bad
             System.exit(0);
-        }
-        else
-        {
+        } else {
             displayGroupList();
         }
     }
@@ -88,21 +86,19 @@ public class GroupListActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class GetGroupsTask extends AsyncTask<Void,Void,ArrayList<Group>>
-    {
+    public class GetGroupsTask extends AsyncTask<Void, Void, ArrayList<Group>> {
 
         @Override
-        protected ArrayList<Group> doInBackground(Void... args)
-        {
+        protected ArrayList<Group> doInBackground(Void... args) {
             ArrayList<Group> list = new ArrayList<>();
 
             //Create username/password param.
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("username",uname));
+            params.add(new BasicNameValuePair("username", uname));
 
-            JSONArray json = jsonParser.makeHttpRequest(url,"POST",params);
+            JSONArray json = jsonParser.makeHttpRequest(url, "POST", params);
 
-            if(json!=null) {
+            if (json != null) {
                 try {
                     for (int a = 0; a < json.length(); a++) {
                         String gName = json.getString(a);
@@ -118,28 +114,22 @@ public class GroupListActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(final ArrayList<Group> list)
-        {
-            groupList=list;
-            if(groupList.size()!=0)
-            {
-                adapter = new GroupAdapter(groupList,mContext);
+        protected void onPostExecute(final ArrayList<Group> list) {
+            groupList = list;
+            if (groupList.size() != 0) {
+                adapter = new GroupAdapter(groupList, mContext);
                 lv.setAdapter(adapter);
-            }
-            else
-            {
+            } else {
                 mTextView.setText("You have no groups");
             }
         }
 
-        protected void onCancelled()
-        {
-            mTask=null;
+        protected void onCancelled() {
+            mTask = null;
         }
     }
 
-    public void CreateGroup(View view)
-    {
+    public void CreateGroup(View view) {
         Intent i = new Intent(mContext, MainActivity.class);
         startActivity(i);
         finish();

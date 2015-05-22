@@ -98,5 +98,6 @@ public class FriendAdapter extends ArrayAdapter<Friend>{
         return convertView;
     }
 
+
     public int getSize(){return mSize;}
 }

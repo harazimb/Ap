@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
 
     <application
         android:allowBackup="true"
@@ -54,6 +54,10 @@
         <activity
             android:name=".GroupListActivity"
             android:label="@string/title_activity_group_list" >
+        </activity>
+        <activity
+            android:name=".EditGroupActivity"
+            android:label="@string/title_activity_edit_group" >
         </activity>
     </application>
 

@@ -25,5 +25,6 @@
     <string name="title_activity_group_edit">group_edit</string>
     <string name="title_activity_group_list">GroupListActivity</string>
     <string name="group">Groups</string>
+    <string name="title_activity_edit_group">EditGroupActivity</string>
 
 </resources>

@@ -114,7 +114,7 @@ public class GroupListActivity extends Activity {
             return list;
         }
 
-        //I changed this so it works but it only gets the groupname of the last one not the clicked group
+        //I made this work
         @Override
         protected void onPostExecute(final ArrayList<Group> list) {
             groupList = list;
@@ -122,20 +122,22 @@ public class GroupListActivity extends Activity {
                 adapter = new GroupAdapter(groupList, mContext);
                 lv.setAdapter(adapter);
                 View v;
-                View temp = null;
-                for(int a =0; a<lv.getCount();a++)
-                {
-                    v= lv.getAdapter().getView(a,temp,null);
-                    final TextView textView = (TextView) v.findViewById(R.id.groupName);
+                //for(int a =0; a<lv.getCount();a++)
+                //{
+                    //v= lv.getAdapter().getView(a,temp,null);
+                    //final TextView textView = (TextView) v.findViewById(R.id.groupName);
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+                            View temp = null;
+                            v= lv.getAdapter().getView(position,temp,null);
+                            final TextView textView = (TextView) v.findViewById(R.id.groupName);
                             Intent i = new Intent(GroupListActivity.this, EditGroupActivity.class);
                             i.putExtra("group_name", textView.getText().toString());
                             startActivity(i);
                         }
                     });
-                }
+                //}
             } else {
                 mTextView.setText("You have no groups");
             }

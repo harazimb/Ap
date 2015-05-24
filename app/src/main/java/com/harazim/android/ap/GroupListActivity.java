@@ -122,6 +122,7 @@ public class GroupListActivity extends Activity {
                 adapter = new GroupAdapter(groupList, mContext);
                 lv.setAdapter(adapter);
                 View v;
+                //View temp = null;
                 //for(int a =0; a<lv.getCount();a++)
                 //{
                     //v= lv.getAdapter().getView(a,temp,null);

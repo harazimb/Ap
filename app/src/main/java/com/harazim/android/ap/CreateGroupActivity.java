@@ -39,7 +39,7 @@ public class CreateGroupActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
-        a = (TextView) findViewById(R.id.Mem);
+        a = (TextView) findViewById(R.id.addedMembers);
         r1 = (RadioButton) findViewById(R.id.OpenPrivacy);
         r2 = (RadioButton) findViewById(R.id.ClosedPrivacy);
         mGroupNameView = (EditText) findViewById(R.id.GroupInput);
@@ -49,14 +49,14 @@ public class CreateGroupActivity extends Activity{
             String members;
             if(memArray.size()==1)
             {
-                members = memArray.get(0);
+                members = "Added: " + memArray.get(0);
             }
             else if(memArray.size()==2)
             {
-                members = memArray.get(0)+ ", " + memArray.get(1);
+                members = "Added: " + memArray.get(0)+ ", " + memArray.get(1);
             }
             else {
-                members = memArray.get(0) + ", " + memArray.get(1) + ", " + memArray.get(2) + "...";
+                members = "Added: " + memArray.get(0) + ", " + memArray.get(1) + ", " + memArray.get(2) + "...";
             }
 
 

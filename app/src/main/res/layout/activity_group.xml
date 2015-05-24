@@ -39,18 +39,7 @@
         android:onClick="addMore" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/memberAddedList"
-        android:id="@+id/Mem"
-        android:textStyle="bold"
-        android:layout_gravity="left"
-        android:layout_marginBottom="-24dp"
-        android:layout_marginLeft="60dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="295dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/addedMembers"

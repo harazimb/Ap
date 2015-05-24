@@ -114,8 +114,7 @@ public class GroupListActivity extends Activity {
             return list;
         }
 
-        //I changed this so it works but it is still buggy with the back button.
-        // I am also not sure what all before the setonitemclicklistener we need.
+        //I changed this so it works but it only gets the groupname of the last one not the clicked group
         @Override
         protected void onPostExecute(final ArrayList<Group> list) {
             groupList = list;

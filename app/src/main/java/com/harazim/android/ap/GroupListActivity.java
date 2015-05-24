@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -113,6 +114,8 @@ public class GroupListActivity extends Activity {
             return list;
         }
 
+        //I changed this so it works but it is still buggy with the back button.
+        // I am also not sure what all before the setonitemclicklistener we need.
         @Override
         protected void onPostExecute(final ArrayList<Group> list) {
             groupList = list;
@@ -125,11 +128,11 @@ public class GroupListActivity extends Activity {
                 {
                     v= lv.getAdapter().getView(a,temp,null);
                     final TextView textView = (TextView) v.findViewById(R.id.groupName);
-                    v.setOnClickListener(new View.OnClickListener() {
+                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
                             Intent i = new Intent(GroupListActivity.this, EditGroupActivity.class);
-                            i.putExtra("group_name",textView.getText().toString());
+                            i.putExtra("group_name", textView.getText().toString());
                             startActivity(i);
                         }
                     });

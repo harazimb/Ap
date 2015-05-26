@@ -162,4 +162,10 @@ public class GroupListActivity extends Activity {
         i.putExtra("group_name", text.getText().toString());
         startActivity(i);
     }
+
+    public void MakeFriends(View view)
+    {
+        Intent i = new Intent(getApplicationContext(), AddFriend.class);
+        startActivity(i);
+    }
 }

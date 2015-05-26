@@ -85,6 +85,7 @@ public class GroupAdapter extends ArrayAdapter<Group>
 
         Group f = mGroupList.get(position);
         holder.groupName.setText(f.getName());
+        holder.groupName.setClickable(false);
         return convertView;
     }
 

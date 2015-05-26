@@ -125,19 +125,19 @@ public class GroupListActivity extends Activity {
                 //View temp = null;
                 //for(int a =0; a<lv.getCount();a++)
                 //{
-                    //v= lv.getAdapter().getView(a,temp,null);
-                    //final TextView textView = (TextView) v.findViewById(R.id.groupName);
-                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
-                            View temp = null;
-                            v= lv.getAdapter().getView(position,temp,null);
-                            final TextView textView = (TextView) v.findViewById(R.id.groupName);
-                            Intent i = new Intent(GroupListActivity.this, EditGroupActivity.class);
-                            i.putExtra("group_name", textView.getText().toString());
-                            startActivity(i);
-                        }
-                    });
+                //v= lv.getAdapter().getView(a,temp,null);
+                //final TextView textView = (TextView) v.findViewById(R.id.groupName);
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+                        View temp = null;
+                        v= lv.getAdapter().getView(position,temp,null);
+                        final TextView textView = (TextView) v.findViewById(R.id.groupName);
+                        Intent i = new Intent(GroupListActivity.this, EditGroupActivity.class);
+                        i.putExtra("group_name", textView.getText().toString());
+                        startActivity(i);
+                    }
+                });
                 //}
             } else {
                 mTextView.setText("You have no groups");
@@ -163,4 +163,3 @@ public class GroupListActivity extends Activity {
         startActivity(i);
     }
 }
-

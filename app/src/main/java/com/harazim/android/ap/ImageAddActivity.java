@@ -1,7 +1,6 @@
 package com.harazim.android.ap;
 
 import android.app.Activity;
-import android.content.Entity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -13,71 +12,30 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class EditGroupActivity extends Activity {
-
-    private final String url = "http://cse.msu.edu/~moraneva/uploadImage.php";
-
-    TextView groupTextView;
-    private String mImagePath;
-    private AddImageTask mAddImageTask;
-    private JSONParser jsonParser  = new JSONParser();
+public class ImageAddActivity extends Activity {
     private static final int SELECT_PHOTO = 100;
-
+    private final String url = "http://cse.msu.edu/~moraneva/upload.php";
+    private String mImagePath;
+    private JSONParser jsonParser;
+    private AddImageTask mAddImageTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_group);
-        Bundle extras = getIntent().getExtras();
-        String value = extras.getString("group_name");
-        groupTextView = (TextView) findViewById(R.id.groupTextView);
-        groupTextView.setText(value);
+        setContentView(R.layout.activity_image_add);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edit_group, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void AddImage(View view)
-    {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, SELECT_PHOTO);
-
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
@@ -102,14 +60,13 @@ public class EditGroupActivity extends Activity {
         String mPath;
         AddImageTask(String path)
         {
-            mPath = path;
+           mPath = path;
         }
 
         @Override
         protected Boolean doInBackground(Void... args){
             //Create username/password param.
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("imagePath",mPath));
 
             JSONObject json = jsonParser.makeHttpRequest(url,"POST",params);
 

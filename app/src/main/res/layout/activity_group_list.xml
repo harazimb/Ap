@@ -52,10 +52,10 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Friends"
+        android:text="Friends"
         android:id="@+id/button4"
-        android:layout_alignTop="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="MakeFriends" />
+        android:onClick="MakeFriends"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/noGroupsTextView"
+        android:layout_alignStart="@+id/noGroupsTextView" />
 </RelativeLayout>

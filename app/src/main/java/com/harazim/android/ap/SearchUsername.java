@@ -1,12 +1,14 @@
 package com.harazim.android.ap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 
 public class SearchUsername extends Activity {
@@ -45,5 +47,6 @@ public class SearchUsername extends Activity {
         startActivity(i);
     }
 
-    //I dont know how to do the serach or add friends
+
+    //I don't know how to do the search or add friends, but might be able to figure it out once the friends are in the database.
 }

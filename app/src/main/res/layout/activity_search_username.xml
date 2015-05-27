@@ -32,6 +32,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
         android:layout_below="@+id/UserAdd"
-        android:layout_toLeftOf="@+id/UserAdd"
-        android:layout_toStartOf="@+id/UserAdd" />
+        android:layout_toLeftOf="@+id/Cancel"
+        android:layout_toStartOf="@+id/Cancel" />
 </RelativeLayout>

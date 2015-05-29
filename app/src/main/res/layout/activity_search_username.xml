@@ -16,22 +16,11 @@
         android:layout_centerHorizontal="true"
         android:textSize="40dp" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:id="@+id/Cancel"
-        android:layout_below="@+id/UserAdd"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="cancel" />
-
     <SearchView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
         android:layout_below="@+id/UserAdd"
-        android:layout_toLeftOf="@+id/Cancel"
-        android:layout_toStartOf="@+id/Cancel" />
+        android:layout_toRightOf="@+id/searchView"
+        android:layout_toEndOf="@+id/searchView" />
 </RelativeLayout>

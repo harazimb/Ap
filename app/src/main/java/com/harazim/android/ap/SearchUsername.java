@@ -41,12 +41,6 @@ public class SearchUsername extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void cancel (View view)
-    {
-        Intent i = new Intent(getApplicationContext(), AddFriend.class);
-        startActivity(i);
-    }
-
 
     //I don't know how to do the search or add friends, but might be able to figure it out once the friends are in the database.
 }

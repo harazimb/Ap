@@ -44,10 +44,4 @@ public class AddFriend extends Activity {
         Intent i = new Intent(getApplicationContext(), SearchUsername.class);
         startActivity(i);
     }
-
-    public void back (View view)
-    {
-        Intent i = new Intent(getApplicationContext(), GroupListActivity.class);
-        startActivity(i);
-    }
 }

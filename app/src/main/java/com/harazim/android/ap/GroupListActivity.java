@@ -152,7 +152,6 @@ public class GroupListActivity extends Activity {
     public void CreateGroup(View view) {
         Intent i = new Intent(mContext, CreateGroupActivity.class);
         startActivity(i);
-        finish();
     }
 
     public void GroupOnClick(View view)

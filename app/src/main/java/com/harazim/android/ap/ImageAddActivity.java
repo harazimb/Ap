@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,6 +19,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -46,7 +48,12 @@ public class ImageAddActivity extends Activity {
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
                     mImagePath = getPath(selectedImage);
-                    mAddImageTask = new AddImageTask(mImagePath);
+                    Bitmap bm = BitmapFactory.decodeFile((mImagePath));
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+                    byte[] b = baos.toByteArray();
+                    String encodedImage = Base64.encodeToString(b,Base64.DEFAULT);
+                    mAddImageTask = new AddImageTask(encodedImage,mImagePath);
                     mAddImageTask.execute((Void) null);
                 }
         }
@@ -57,17 +64,19 @@ public class ImageAddActivity extends Activity {
      */
     public class AddImageTask extends AsyncTask<Void,Void,Boolean> {
 
-        String mPath;
-        AddImageTask(String path)
+        String mImage, mPath;
+        AddImageTask(String image, String path)
         {
-           mPath = path;
+           mImage = image;
+            mPath = path;
         }
 
         @Override
         protected Boolean doInBackground(Void... args){
             //Create username/password param.
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-
+            params.add(new BasicNameValuePair("image",mImage));
+            params.add(new BasicNameValuePair("imagePath",mPath));
             JSONObject json = jsonParser.makeHttpRequest(url,"POST",params);
 
             try{

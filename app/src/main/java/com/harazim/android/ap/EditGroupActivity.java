@@ -92,7 +92,9 @@ public class EditGroupActivity extends Activity {
                     mImagePath = getPath(selectedImage);
                     Bitmap bm = BitmapFactory.decodeFile((mImagePath));
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+
+                    //I think the 10 means 10% quality, we'll use this for now.
+                    bm.compress(Bitmap.CompressFormat.JPEG,10,baos);
                     byte[] b = baos.toByteArray();
                     String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
                     mAddImageTask = new AddImageTask(encodedImage,mImagePath);

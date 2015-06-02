@@ -110,11 +110,7 @@ public class CreateGroupActivity extends Activity{
     {
         if(memArray != null) {
 
-            //Bundle bundel = new Bundle();
-            //bundel.putStringArrayList("key", memArray);
-
             Intent intent = new Intent(this, MainActivity.class);
-            //intent.putExtras(bundel);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         }
@@ -200,7 +196,8 @@ public class CreateGroupActivity extends Activity{
                 e.printStackTrace();
             }
             return null;
-        }
+
+  }
 
         @Override
         protected void onPostExecute(final Boolean success)

@@ -17,7 +17,6 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
     ArrayList<Friend> friendList;
     ArrayList<String> memberList= new ArrayList<String>();
     FriendAdapter frAdapter;
-    ArrayList<String> temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +25,10 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
 
         lv = (ListView) findViewById(R.id.listview);
         displayFriendList();
-        Bundle extra = getIntent().getExtras();
-        if(extra != null) {
-            memberList = getIntent().getExtras().getStringArrayList("key");
-        }
+       // Bundle extra = getIntent().getExtras();
+       // if(extra != null) {
+        //    groupName = getIntent().getExtras().getString("key");
+      //  }
     }
 
     private void displayFriendList() {

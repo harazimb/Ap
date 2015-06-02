@@ -35,6 +35,7 @@ public class CreateGroupActivity extends Activity{
     RadioButton r1;
     RadioButton r2;
     ArrayList<String> memArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,11 +110,12 @@ public class CreateGroupActivity extends Activity{
     {
         if(memArray != null) {
 
-            Bundle bundel = new Bundle();
-            bundel.putStringArrayList("key", memArray);
+            //Bundle bundel = new Bundle();
+            //bundel.putStringArrayList("key", memArray);
 
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtras(bundel);
+            //intent.putExtras(bundel);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         }
         else

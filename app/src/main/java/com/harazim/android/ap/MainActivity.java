@@ -27,22 +27,8 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
         lv = (ListView) findViewById(R.id.listview);
         displayFriendList();
         Bundle extra = getIntent().getExtras();
-        //This needs check the box of a member when previously checked, I tried some code.
-        // I need to simulate a click on the friend for each element in the array list temp
-        if(extra != null)
-        {
-            temp = getIntent().getExtras().getStringArrayList("key");
-            for(int i = 0; i<temp.size(); i++)
-            {
-                for(int j = 0; j<friendList.size(); j++)
-                {
-                    if(friendList.get(j).getName() == temp.get(i))
-                    {
-                        //friendList.get(j).setSelected(true);
-                    }
-                }
-
-            }
+        if(extra != null) {
+            memberList = getIntent().getExtras().getStringArrayList("key");
         }
     }
 
@@ -101,7 +87,7 @@ public class MainActivity extends Activity implements CompoundButton.OnCheckedCh
             Intent intent = new Intent(this, CreateGroupActivity.class);
             intent.putExtras(bundel);
             startActivity(intent);
-        }
+    }
 
         else
         {

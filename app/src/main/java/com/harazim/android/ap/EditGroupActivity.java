@@ -1,8 +1,10 @@
 package com.harazim.android.ap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Entity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,6 +35,7 @@ public class EditGroupActivity extends Activity {
 
     private final String url = "http://cse.msu.edu/~moraneva/uploadImage.php";
 
+    String user;
     TextView groupTextView;
     private String mImagePath;
     private AddImageTask mAddImageTask;
@@ -44,9 +47,17 @@ public class EditGroupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_group);
         Bundle extras = getIntent().getExtras();
+        SharedPreferences sharedPref = EditGroupActivity.this.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String value = extras.getString("group_name");
         groupTextView = (TextView) findViewById(R.id.groupTextView);
         groupTextView.setText(value);
+        user = sharedPref.getString("username","not good");
+        if(user.equals("not good"))
+        {
+            System.exit(0);
+        }
+
     }
 
 
@@ -119,6 +130,8 @@ public class EditGroupActivity extends Activity {
         protected Boolean doInBackground(Void... args){
             //Create username/password param.
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("groupName",groupTextView.getText().toString()));
+            params.add(new BasicNameValuePair("ownerName",user));
             params.add(new BasicNameValuePair("imagePath",mPath));
             params.add(new BasicNameValuePair("image",mImage));
             JSONObject json = jsonParser.makeHttpRequest(url,"POST",params);
@@ -145,8 +158,12 @@ public class EditGroupActivity extends Activity {
         {
             //Intent i = new Intent(ImageAddActivity.this,GroupListActivity.class);
             //startActivity(i);
+            Intent i = new Intent(EditGroupActivity.this, TestImageViewActivity.class);
+            i.putExtra("groupName", groupTextView.getText().toString());
+            i.putExtra("ownerName",user);
+            i.putExtra("imagePath",mPath);
+            startActivity(i);
 
-            finish();
         }
 
         protected void onCancelled()

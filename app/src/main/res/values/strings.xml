@@ -30,5 +30,6 @@
     <string name="FriendTitle">Friends</string>
     <string name="title_activity_search_username">SearchUsername</string>
     <string name="title_activity_image_add">ImageAddActivity</string>
+    <string name="title_activity_test_image_view">TestImageViewActivity</string>
 
 </resources>

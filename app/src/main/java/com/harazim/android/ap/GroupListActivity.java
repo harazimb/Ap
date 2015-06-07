@@ -122,11 +122,6 @@ public class GroupListActivity extends Activity {
                 adapter = new GroupAdapter(groupList, mContext);
                 lv.setAdapter(adapter);
                 View v;
-                //View temp = null;
-                //for(int a =0; a<lv.getCount();a++)
-                //{
-                //v= lv.getAdapter().getView(a,temp,null);
-                //final TextView textView = (TextView) v.findViewById(R.id.groupName);
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
@@ -138,7 +133,7 @@ public class GroupListActivity extends Activity {
                         startActivity(i);
                     }
                 });
-                //}
+
             } else {
                 mTextView.setText("You have no groups");
             }

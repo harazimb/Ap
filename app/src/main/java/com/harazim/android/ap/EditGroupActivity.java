@@ -17,10 +17,14 @@ import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,12 +38,19 @@ import java.util.List;
 public class EditGroupActivity extends Activity {
 
     private final String url = "http://cse.msu.edu/~moraneva/uploadImage.php";
+    private final String downloadurl = "http://cse.msu.edu/~moraneva/downloadImage.php";
 
     String user;
     TextView groupTextView;
+    private ArrayList<GroupImage> imageList;
+    private ImageAdapter adapter;
     private String mImagePath;
     private AddImageTask mAddImageTask;
+    private GetImagesTask mGetImagesTask;
     private JSONParser jsonParser  = new JSONParser();
+    private JSONArrayParser jsonArrayParser = new JSONArrayParser();
+    private Context mContext;
+    private GridView mGridView;
     private static final int SELECT_PHOTO = 100;
 
     @Override
@@ -53,10 +64,15 @@ public class EditGroupActivity extends Activity {
         groupTextView = (TextView) findViewById(R.id.groupTextView);
         groupTextView.setText(value);
         user = sharedPref.getString("username","not good");
+        mContext = this.getApplicationContext();
+        mGridView = (GridView) findViewById(R.id.gridView);
         if(user.equals("not good"))
         {
             System.exit(0);
         }
+
+        mGetImagesTask = new GetImagesTask();
+        mGetImagesTask.execute((Void) null);
 
     }
 
@@ -158,11 +174,11 @@ public class EditGroupActivity extends Activity {
         {
             //Intent i = new Intent(ImageAddActivity.this,GroupListActivity.class);
             //startActivity(i);
-            Intent i = new Intent(EditGroupActivity.this, TestImageViewActivity.class);
+            /*Intent i = new Intent(EditGroupActivity.this, TestImageViewActivity.class);
             i.putExtra("groupName", groupTextView.getText().toString());
             i.putExtra("ownerName",user);
             i.putExtra("imagePath",mPath);
-            startActivity(i);
+            startActivity(i);*/
 
         }
 
@@ -189,6 +205,53 @@ public class EditGroupActivity extends Activity {
         }
 
         return uri.getPath();
+    }
+
+    public class GetImagesTask extends AsyncTask<Void, Void, ArrayList<GroupImage>> {
+
+        @Override
+        protected ArrayList<GroupImage> doInBackground(Void... args) {
+            ArrayList<GroupImage> list = new ArrayList<>();
+
+            //Create username/password param.
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("groupName", groupTextView.getText().toString()));
+            params.add(new BasicNameValuePair("ownerName",user));
+
+            JSONArray json = jsonArrayParser.makeHttpRequest(downloadurl, "POST", params);
+
+            if (json != null) {
+                try {
+                    for (int a = 0; a < json.length(); a++) {
+                        String gName = json.getString(a);
+                        byte[] encoded = Base64.decode(gName,Base64.DEFAULT);
+                        GroupImage g = new GroupImage(encoded);
+                        list.add(g);
+                        //Group g = new Group(gName);
+                        //list.add(g);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return list;
+        }
+
+        //I made this work
+        @Override
+        protected void onPostExecute(final ArrayList<GroupImage> list) {
+            imageList = list;
+            if (imageList.size() != 0) {
+                adapter = new ImageAdapter(imageList, mContext);
+                mGridView.setAdapter(adapter);
+                View v;
+            }
+        }
+
+        protected void onCancelled() {
+            mGetImagesTask = null;
+        }
     }
 
 }

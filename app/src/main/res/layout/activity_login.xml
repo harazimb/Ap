@@ -30,6 +30,14 @@
                 android:layout_marginTop="16dp" android:text="@string/action_login"
                 android:textStyle="bold" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:id="@+id/login_page_register_button"
+                android:layout_gravity="center_horizontal"
+                android:onClick="RegisterFromLogin" />
+
         </LinearLayout>
     </ScrollView>
 

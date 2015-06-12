@@ -48,7 +48,7 @@ public class LoginActivity extends Activity {
         mPasswordView = (EditText) findViewById(R.id.password_login);
         mUsernameView = (EditText) findViewById(R.id.username_login);
 
-        mRegisterButton= (Button) findViewById(R.id.register_button_login);
+        mRegisterButton = (Button) findViewById(R.id.register_button_login);
         mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +59,6 @@ public class LoginActivity extends Activity {
         mLoginFormView = findViewById(R.id.login_form);
 
 
-
     }
 
 
@@ -68,8 +67,7 @@ public class LoginActivity extends Activity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    public void attemptRegister()
-    {
+    public void attemptRegister() {
         //Reset errors.
         mUsernameView.setError(null);
         mPasswordView.setError(null);
@@ -77,14 +75,11 @@ public class LoginActivity extends Activity {
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
         //If there is already a authorization task going on, don't do anything.
-        if(mAuthTask!=null)
-        {
+        if (mAuthTask != null) {
             return;
-        }
-
-        else{
+        } else {
             // Execute registration.
-            mAuthTask = new UserLoginTask(username,password);
+            mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
         }
 
@@ -93,65 +88,59 @@ public class LoginActivity extends Activity {
     /**
      *
      */
-    public class UserLoginTask extends AsyncTask<Void,Void,Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mUsername;
         private final String mPassword;
-        UserLoginTask(String username, String password)
-        {
-            mUsername=username;
-            mPassword=password;
+
+        UserLoginTask(String username, String password) {
+            mUsername = username;
+            mPassword = password;
         }
 
         @Override
-        protected Boolean doInBackground(Void... args)
-        {
+        protected Boolean doInBackground(Void... args) {
             //Create username/password param.
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("username",mUsername));
-            params.add(new BasicNameValuePair("password",mPassword));
+            params.add(new BasicNameValuePair("username", mUsername));
+            params.add(new BasicNameValuePair("password", mPassword));
 
             // Getting json Object.
-            JSONObject json = jsonParser.makeHttpRequest(url,"POST",params);
+            JSONObject json = jsonParser.makeHttpRequest(url, "POST", params);
 
-            try{
-                int success=json.getInt(TAG_SUCCESS);
+            try {
+                int success = json.getInt(TAG_SUCCESS);
 
-                if(success==1){
+                if (success == 1) {
 
                     return true;
-                } else{
+                } else {
                     return false;
                 }
 
-            }
-            catch(JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(final Boolean success)
-        {
-            mAuthTask=null;
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
 
-            if(success)
-            {
+            if (success) {
                 SharedPreferences sharedPref = LoginActivity.this.getSharedPreferences(
                         getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("username",mUsername);
-                editor.putString("password",mPassword);
+                editor.putString("username", mUsername);
+                editor.putString("password", mPassword);
                 editor.commit();
-                Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                Intent i = new Intent(LoginActivity.this, GroupListActivity.class);
                 startActivity(i);
 
                 finish();
-            }
-            else
-            {
+            } else {
                 mUsernameView.setError(getString(R.string.error_invalid_username));
                 mUsernameView.requestFocus();
             }
@@ -159,9 +148,14 @@ public class LoginActivity extends Activity {
         }
 
         @Override
-        protected void onCancelled()
-        {
-            mAuthTask=null;
+        protected void onCancelled() {
+            mAuthTask = null;
         }
+    }
+
+    public void RegisterFromLogin(View view) {
+        Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(i);
+        finish();
     }
 }

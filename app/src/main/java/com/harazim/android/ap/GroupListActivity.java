@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,18 +46,24 @@ public class GroupListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_list);
-        SharedPreferences sharedPref = GroupListActivity.this.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         mTextView = (TextView) findViewById(R.id.noGroupsTextView);
         lv = (ListView) findViewById(R.id.groupListView);
         mContext = this.getApplicationContext();
-        uname = sharedPref.getString("username", "penis");
-        if (uname.equals("penis")) {
-            //This is bad
-            System.exit(0);
-        } else {
+
+        try {
+            StoredUser user = new StoredUser(mContext);
+            uname = user.GetUsername();
             displayGroupList();
         }
+        catch(UserNotFoundException ex)
+        {
+            // User wasn't found in local cache, shouldn't reach here ever but just in case,
+            // kick them back to Login and make them re-authenticate
+            Intent i = new Intent(GroupListActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
+
     }
 
     private void displayGroupList() {
@@ -126,7 +133,7 @@ public class GroupListActivity extends Activity {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
                         View temp = null;
-                        v= lv.getAdapter().getView(position,temp,null);
+                        v = lv.getAdapter().getView(position, temp, null);
                         final TextView textView = (TextView) v.findViewById(R.id.groupName);
                         Intent i = new Intent(GroupListActivity.this, EditGroupActivity.class);
                         i.putExtra("group_name", textView.getText().toString());
@@ -149,16 +156,14 @@ public class GroupListActivity extends Activity {
         startActivity(i);
     }
 
-    public void GroupOnClick(View view)
-    {
+    public void GroupOnClick(View view) {
         TextView text = (TextView) view.findViewById(R.id.groupName);
         Intent i = new Intent(GroupListActivity.this, EditGroupActivity.class);
         i.putExtra("group_name", text.getText().toString());
         startActivity(i);
     }
 
-    public void MakeFriends(View view)
-    {
+    public void MakeFriends(View view) {
         Intent i = new Intent(getApplicationContext(), AddFriend.class);
         startActivity(i);
     }

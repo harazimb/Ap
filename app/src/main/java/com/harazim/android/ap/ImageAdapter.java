@@ -73,9 +73,12 @@ public class ImageAdapter extends ArrayAdapter<GroupImage>
             byte[] array = mImageList.get(position).mEncodedImageArray;
             Bitmap bitmap = BitmapFactory.decodeByteArray(array,0,array.length);
             holder.imageView.setImageBitmap(bitmap);
+
             convertView = holder.imageView;
 
             convertView.setTag(holder);
+            //clear text? wonder if works or not
+            mImageList.get(position).SetEncodedImageArray(null);
         }
 
         else

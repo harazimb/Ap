@@ -53,7 +53,7 @@ public class RegisterActivity extends Activity {
         mPasswordView = (EditText) findViewById(R.id.password);
         mUsernameView = (EditText) findViewById(R.id.username);
 
-        mRegisterButton= (Button) findViewById(R.id.register_button);
+        mRegisterButton = (Button) findViewById(R.id.register_button);
         mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,11 +70,9 @@ public class RegisterActivity extends Activity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    public void attemptRegister()
-    {
+    public void attemptRegister() {
         //If there is already a authorization task going on, don't do anything.
-        if(mAuthTask!=null)
-        {
+        if (mAuthTask != null) {
             return;
         }
 
@@ -90,35 +88,29 @@ public class RegisterActivity extends Activity {
         View focusView = null;
 
         //Checking for valid password
-        if(!TextUtils.isEmpty(password) && !isPasswordValid(password))
-        {
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
 
         //check for valid username
-        if(TextUtils.isEmpty(username))
-        {
+        if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
-        }
-        else if(!isUsernameValid(username))
-        {
+        } else if (!isUsernameValid(username)) {
             mUsernameView.setError(getString(R.string.error_invalid_username));
             focusView = mUsernameView;
             cancel = true;
         }
 
-        if(cancel)
-        {
+        if (cancel) {
             //There was an error so focus on what field caused the error.
             focusView.requestFocus();
-        }
-        else{
+        } else {
             // Execute registration.
-            mAuthTask = new UserRegisterTask(username,password);
+            mAuthTask = new UserRegisterTask(username, password);
             mAuthTask.execute((Void) null);
         }
 
@@ -126,85 +118,79 @@ public class RegisterActivity extends Activity {
 
     /**
      * Is the input password valid? Was thinking greater than 4 characters??
+     *
      * @param password password entered
      * @return true if valid
      */
-    private boolean isPasswordValid(String password)
-    {
-        return password.length()>4;
+    private boolean isPasswordValid(String password) {
+        return password.length() > 4;
     }
 
     /**
      * Going to implement code to check if username already taken here.
+     *
      * @param username username entered.
      * @return true if valid.
      */
-    private boolean isUsernameValid(String username)
-    {
+    private boolean isUsernameValid(String username) {
         return true;
     }
 
     /**
      *
      */
-    public class UserRegisterTask extends AsyncTask<Void,Void,Boolean> {
+    public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mUsername;
         private final String mPassword;
-        UserRegisterTask(String username, String password)
-        {
-            mUsername=username;
-            mPassword=password;
+
+        UserRegisterTask(String username, String password) {
+            mUsername = username;
+            mPassword = password;
         }
 
         @Override
-        protected Boolean doInBackground(Void... args)
-        {
+        protected Boolean doInBackground(Void... args) {
             //Create username/password param.
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("username",mUsername));
-            params.add(new BasicNameValuePair("password",mPassword));
+            params.add(new BasicNameValuePair("username", mUsername));
+            params.add(new BasicNameValuePair("password", mPassword));
 
             // Getting json Object.
-            JSONObject json = jsonParser.makeHttpRequest(url,"POST",params);
+            JSONObject json = jsonParser.makeHttpRequest(url, "POST", params);
 
-            try{
-                int success=json.getInt(TAG_SUCCESS);
+            try {
+                int success = json.getInt(TAG_SUCCESS);
 
-                if(success==1){
+                if (success == 1) {
 
                     return true;
-                } else{
+                } else {
                     return false;
                 }
 
-            }
-            catch(JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(final Boolean success)
-        {
-            mAuthTask=null;
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
 
-            if(success)
-            {
+            if (success) {
                 SharedPreferences sharedPref = RegisterActivity.this.getSharedPreferences(
                         getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("username",mUsername);
-                editor.putString("password",mPassword);
-                Intent i = new Intent(RegisterActivity.this,MainActivity.class);
+                editor.putString("username", mUsername);
+                editor.putString("password", mPassword);
+                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(i);
 
                 finish();
-            }
-            else
-            {
+            } else {
                 mUsernameView.setError(getString(R.string.error_invalid_username));
                 mUsernameView.requestFocus();
             }
@@ -212,10 +198,15 @@ public class RegisterActivity extends Activity {
         }
 
         @Override
-        protected void onCancelled()
-        {
-            mAuthTask=null;
+        protected void onCancelled() {
+            mAuthTask = null;
         }
+    }
+
+    public void LoginFromRegister(View view) {
+        Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(i);
+        finish();
     }
 }
 

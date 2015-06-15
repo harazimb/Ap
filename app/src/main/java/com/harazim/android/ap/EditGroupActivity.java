@@ -245,7 +245,6 @@ public class EditGroupActivity extends Activity {
             if (imageList.size() != 0) {
                 adapter = new ImageAdapter(imageList, mContext);
                 mGridView.setAdapter(adapter);
-                View v;
             }
         }
 
